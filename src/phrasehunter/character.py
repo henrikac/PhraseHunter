@@ -23,3 +23,4 @@ class Character:
     def display_char(self) -> None:
         """Displays self.char if has been guessed, _ otherwise"""
         print(self.char if self.was_guessed else '_')
+
