@@ -10,3 +10,7 @@ class Phrase:
         self.phrase = phrase
         self.phrase_guessed = False
 
+    def __str__(self) -> str:
+        chars = [str(char) for char in self.phrase]
+        return ''.join(chars)
+

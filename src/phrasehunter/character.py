@@ -24,3 +24,6 @@ class Character:
         """Displays self.char if has been guessed, _ otherwise"""
         print(self.char if self.was_guessed else '_')
 
+    def __str__(self) -> str:
+        return self.char
+
