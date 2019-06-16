@@ -20,9 +20,9 @@ class Character:
         if self.char == char:
             self.was_guessed = True
 
-    def display_char(self) -> None:
+    def display_char(self) -> str:
         """Displays self.char if has been guessed, _ otherwise"""
-        print(self.char if self.was_guessed else '_')
+        return self.char if self.was_guessed else '_'
 
     def __str__(self) -> str:
         return self.char
