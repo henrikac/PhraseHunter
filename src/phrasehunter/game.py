@@ -37,17 +37,30 @@ class Game:
 
     def play(self) -> None:
         """Starts the game"""
-        while True:
-            self.__clear_screen()
-            print('=' * 12)
-            print('PHRASEHUNTER')
-            print('=' * 12)
+        self.__clear_screen()
+        print('=' * 12)
+        print('PHRASEHUNTER')
+        print('=' * 12)
+
+        while '_' in self.active_phrase.display_phrase()  and self.remaining_tries:
 
             print(f'\n{self.active_phrase.display_phrase()}\n')
             print(f'You have {self.remaining_tries} {"life" if self.remaining_tries < 2 else "lives"} left\n')
 
             user_input = self.__prompt_player()
 
+            correct_guess = False
             for char in self.active_phrase:
-                char.guess(user_input)
+                try:
+                    guess = char.guess(user_input)
+                except ValueError as err:
+                    print(f'{err}')
+                    correct_guess = True
+                    break
+                else:
+                    if guess:
+                        correct_guess = True
+
+            if not correct_guess:
+                self.remaining_tries -= 1
 

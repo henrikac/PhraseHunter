@@ -19,5 +19,5 @@ class Phrase:
 
     def display_phrase(self):
         """Displays the phrase"""
-        return ''.join([char.display_char() for char in self.phrase])
+        return ''.join([char.get_char() for char in self.phrase])
 
