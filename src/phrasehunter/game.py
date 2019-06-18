@@ -40,14 +40,16 @@ class Game:
         self.__clear_screen()
         print('=' * 12)
         print('PHRASEHUNTER')
-        print('=' * 12)
+        print('=' * 12, end='\n\n')
 
-        while '_' in self.active_phrase.display_phrase()  and self.remaining_tries:
+        phrase = self.active_phrase.get_phrase()
+        while '_' in phrase and self.remaining_tries:
 
-            print(f'\n{self.active_phrase.display_phrase()}\n')
-            print(f'You have {self.remaining_tries} {"life" if self.remaining_tries < 2 else "lives"} left\n')
+            self.active_phrase.display_phrase()
+            print(f'\n\nYou have {self.remaining_tries} {"life" if self.remaining_tries < 2 else "lives"} left\n')
 
             user_input = self.__prompt_player()
+            print()
 
             correct_guess = False
             for char in self.active_phrase:
@@ -63,4 +65,6 @@ class Game:
 
             if not correct_guess:
                 self.remaining_tries -= 1
+
+            phrase = self.active_phrase.get_phrase()
 
