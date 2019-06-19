@@ -9,11 +9,11 @@ def create_phrases() -> List[Phrase]:
     """Creates a list of phrases"""
     phrases: List[Phrase] = []
     str_phrases = [
-        'hello',
-        'cowboy',
-        'christmas',
-        'tomato',
-        'univers'
+        'Hello',
+        'Cowboy',
+        'Christmas',
+        'Santa Claus',
+        'Univers'
     ]
 
     for phrase in str_phrases:

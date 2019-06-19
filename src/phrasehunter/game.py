@@ -33,7 +33,37 @@ class Game:
             if len(guess) != 1 or not guess.isalpha():
                 print('Please enter a single character')
             else:
-                return guess
+                return guess.lower()
+
+    def __display_victory(self) -> None:
+        """Lets the player know that he/she won"""
+        self.__clear_screen()
+        print('=' * 8)
+        print('VICTORY!')
+        print('=' * 8, end='\n\n')
+        print('You guessed the phrase!')
+        print(f'Phrase: {self.active_phrase.get_phrase()}')
+        print(f'Lives remaining: {self.remaining_tries}\n')
+
+    def __display_failure(self) -> None:
+        """Lets the player know that he/she failed to guess the phrase"""
+        self.__clear_screen()
+        print('=' * 7)
+        print('BUMMER!')
+        print('=' * 7, end='\n\n')
+        print('You didn\'t manage to guess the phrase!')
+        print(f'The phrase was: {str(self.active_phrase)}\n')
+
+    def __play_again(self) -> bool:
+        """Prompts the user if he/she wants to play again"""
+        user_input = input('Do you want to play again [Y/N]? ')
+        return user_input.lower() == 'y'
+
+    def __restart_game(self) -> None:
+        """Restarts the game"""
+        self.active_phrase.reset_phrase()
+        self.active_phrase = self.__get_random_phrase()
+        self.remaining_tries = 5
 
     def play(self) -> None:
         """Starts the game"""
@@ -42,8 +72,7 @@ class Game:
         print('PHRASEHUNTER')
         print('=' * 12, end='\n\n')
 
-        phrase = self.active_phrase.get_phrase()
-        while '_' in phrase and self.remaining_tries:
+        while not self.active_phrase.been_guessed() and self.remaining_tries:
 
             self.active_phrase.display_phrase()
             print(f'\n\nYou have {self.remaining_tries} {"life" if self.remaining_tries < 2 else "lives"} left\n')
@@ -56,7 +85,7 @@ class Game:
                 try:
                     guess = char.guess(user_input)
                 except ValueError as err:
-                    print(f'{err}')
+                    print(f'{err}\n')
                     correct_guess = True
                     break
                 else:
@@ -66,5 +95,14 @@ class Game:
             if not correct_guess:
                 self.remaining_tries -= 1
 
-            phrase = self.active_phrase.get_phrase()
+            if self.active_phrase.been_guessed():
+                self.__display_victory()
+
+                if self.__play_again():
+                    self.__restart_game()
+            elif self.remaining_tries == 0:
+                self.__display_failure()
+
+                if self.__play_again():
+                    self.__restart_game()
 
