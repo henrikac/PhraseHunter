@@ -106,3 +106,5 @@ class Game:
                 if self.__play_again():
                     self.__restart_game()
 
+        print('\nHope to see again soon! :-)\n')
+
