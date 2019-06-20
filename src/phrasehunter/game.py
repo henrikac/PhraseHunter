@@ -30,10 +30,27 @@ class Game:
         while True:
             guess = input('Enter a character: ')
 
-            if len(guess) != 1 or not guess.isalpha():
+            if len(guess) != 1:
                 print('Please enter a single character')
+            elif not guess.isalpha():
+                print('Invalid guess: Please enter a character')
             else:
                 return guess.lower()
+
+    def __correct_guess(self, char_guess: str) -> bool:
+        """Checks if user guess is correct or not"""
+        correct_guess = False
+        for char in self.active_phrase:
+            try:
+                guess = char.guess(char_guess)
+            except ValueError as err:
+                print(f'{err}\n')
+                correct_guess = True
+                break
+            else:
+                if guess:
+                    correct_guess = True
+        return correct_guess
 
     def __display_victory(self) -> None:
         """Lets the player know that he/she won"""
@@ -80,19 +97,7 @@ class Game:
             user_input = self.__prompt_player()
             print()
 
-            correct_guess = False
-            for char in self.active_phrase:
-                try:
-                    guess = char.guess(user_input)
-                except ValueError as err:
-                    print(f'{err}\n')
-                    correct_guess = True
-                    break
-                else:
-                    if guess:
-                        correct_guess = True
-
-            if not correct_guess:
+            if not self.__correct_guess(user_input):
                 self.remaining_tries -= 1
 
             if self.active_phrase.been_guessed():
