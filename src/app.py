@@ -9,7 +9,7 @@ def create_phrases() -> List[Phrase]:
     """Creates a list of phrases"""
     phrases: List[Phrase] = []
     str_phrases = [
-        'H3llo',
+        'Hello',
         'Cowboy',
         'Christmas',
         'Santa Claus',
@@ -28,7 +28,11 @@ def create_phrases() -> List[Phrase]:
 
 
 if __name__ == '__main__':
-    phrases = create_phrases()
-    game = Game(phrases)
-    game.play()
+    try:
+        phrases = create_phrases()
+        game = Game(phrases)
+    except ValueError as err:
+        print(f'\nError: {err}\n')
+    else:
+        game.play()
 
