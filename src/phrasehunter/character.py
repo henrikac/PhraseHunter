@@ -13,6 +13,9 @@ class Character:
 
     def __valid_char(self, char: str) -> bool:
         """Checks if valid character"""
+        if char.isdigit():
+            raise ValueError('Characters can\'t be numbers')
+
         return char.isalpha() or char.isspace()
 
     @property
@@ -38,5 +41,6 @@ class Character:
         print(self.char if self.was_guessed else '_', end=' ')
 
     def reset(self) -> None:
+        """Sets a Character back to 'not guessed'"""
         self.was_guessed = False
 

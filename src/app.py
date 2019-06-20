@@ -9,7 +9,7 @@ def create_phrases() -> List[Phrase]:
     """Creates a list of phrases"""
     phrases: List[Phrase] = []
     str_phrases = [
-        'Hello',
+        'H3llo',
         'Cowboy',
         'Christmas',
         'Santa Claus',
@@ -17,8 +17,12 @@ def create_phrases() -> List[Phrase]:
     ]
 
     for phrase in str_phrases:
-        chars = [Character(char) for char in phrase]
-        phrases.append(Phrase(chars))
+        try:
+            chars = [Character(char) for char in phrase]
+        except ValueError as err:
+            print(f'\nError: {err}\n')
+        else:
+            phrases.append(Phrase(chars))
 
     return phrases
 
@@ -28,6 +32,3 @@ if __name__ == '__main__':
     game = Game(phrases)
     game.play()
 
-# Inside Dunder Main:
-## Create an instance of your Game class
-## Start your game by calling the instance method that starts the game loop

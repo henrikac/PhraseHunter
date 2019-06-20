@@ -9,8 +9,8 @@ class Game:
     """Responsible for the state of the Game"""
 
     def __init__(self, phrases: List[Phrase]) -> None:
-        if len(phrases) < 1:
-            raise ValueError('At least 1 phrase is required')
+        if len(phrases) < 5:
+            raise ValueError('At least 5 phrases is required')
 
         self.phrases = phrases
         self.active_phrase = self.__get_random_phrase()
