@@ -11,7 +11,6 @@ class Phrase:
             raise ValueError('A phrase must contain at least 1 character')
 
         self.phrase = phrase
-        self.phrase_guessed = False
 
     def __str__(self) -> str:
         return ''.join([str(char) for char in self.phrase])
