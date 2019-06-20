@@ -2,11 +2,18 @@ class Character:
     """Responsible for holding the state of a given character"""
 
     def __init__(self, char: str) -> None:
+        if not self.__valid_char(char):
+            raise ValueError('Please enter a character')
+
         self.char = char
         self.was_guessed = True if char == ' ' else False
 
     def __str__(self) -> str:
         return self.char
+
+    def __valid_char(self, char: str) -> bool:
+        """Checks if valid character"""
+        return char.isalpha() or char.isspace()
 
     @property
     def character(self) -> str:

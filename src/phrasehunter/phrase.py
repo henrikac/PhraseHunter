@@ -7,6 +7,9 @@ class Phrase:
     """Responsible for the state of the Phrase"""
 
     def __init__(self, phrase: List[Character]) -> None:
+        if len(phrase) < 1:
+            raise ValueError('A phrase must contain at least 1 character')
+
         self.phrase = phrase
         self.phrase_guessed = False
 
